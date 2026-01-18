@@ -2,7 +2,7 @@
 :icons: font
 :toc:
 
-:imagesdir: doc/images
+:imagesdir: images
 
 == Архитектурная схема
 
