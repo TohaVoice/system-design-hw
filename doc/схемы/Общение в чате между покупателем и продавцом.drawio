@@ -1,0 +1,133 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.2">
+  <diagram name="Chat Service Architecture" id="O1vsTmNnCYDBrEJvAd1n">
+    <mxGraphModel dx="1369" dy="766" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="355COllHnJ6RIITX1w4e-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#e8f5e9;strokeColor=#2e7d32;" value="Клиент А&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(Web/Mobile)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="40" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#e3f2fd;strokeColor=#1976d2;" value="API Gateway&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(WebSocket)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="290" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#fff3e0;strokeColor=#f57c00;" value="Chat Service&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(WebSocket Hub)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="490" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#f3e5f5;strokeColor=#7b1fa2;" value="Kafka&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(для persistence)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="350" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#ffebee;strokeColor=#c62828;" value="Redis Pub/Sub&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(для real-time)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="630" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#e0f2f1;strokeColor=#00695c;" value="Database /&lt;br&gt;Elasticsearch&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(история чата)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="140" x="350" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#fff8e1;strokeColor=#ff8f00;" value="Клиент Б&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;получает&lt;br&gt;сообщение&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="140" x="630" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#fce4ec;strokeColor=#c2185b;" value="Notification Service&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(Push/Email/SMS)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="140" x="490" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-9" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" value="&lt;b&gt;Если клиент Б offline:&lt;/b&gt;" vertex="1">
+          <mxGeometry height="30" width="120" x="570" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-10" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" value="🔌" vertex="1">
+          <mxGeometry height="30" width="30" x="250" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-11" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" value="⚡" vertex="1">
+          <mxGeometry height="30" width="30" x="635" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-12" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" value="💾" vertex="1">
+          <mxGeometry height="30" width="30" x="350" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-13" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;WebSocket&lt;/b&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.28" y="0.32" as="geometry">
+            <mxPoint x="220" y="220" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-14" edge="1" parent="1" source="355COllHnJ6RIITX1w4e-1" style="endArrow=classic;html=1;fontSize=12;entryX=0;entryY=0.5;exitX=1;exitY=0.5;edgeStyle=orthogonalEdgeStyle;" target="355COllHnJ6RIITX1w4e-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="180" y="230" as="sourcePoint" />
+            <mxPoint x="240" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-15" edge="1" parent="1" source="355COllHnJ6RIITX1w4e-2" style="endArrow=classic;html=1;fontSize=12;entryX=0;entryY=0.5;exitX=1;exitY=0.5;edgeStyle=orthogonalEdgeStyle;" target="355COllHnJ6RIITX1w4e-3" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="430" y="230" as="sourcePoint" />
+            <mxPoint x="490" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-16" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;Сохранение&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;(persistence)&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.3" y="0.5" as="geometry">
+            <mxPoint x="470" y="280" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-17" edge="1" parent="1" source="355COllHnJ6RIITX1w4e-3" style="endArrow=classic;html=1;fontSize=12;exitX=0.2;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" target="355COllHnJ6RIITX1w4e-4" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="518" y="300" />
+              <mxPoint x="420" y="300" />
+            </Array>
+            <mxPoint x="520" y="260" as="sourcePoint" />
+            <mxPoint x="420" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-18" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;Real-time&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;(broadcast)&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.3" y="0.5" as="geometry">
+            <mxPoint x="650" y="280" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-19" edge="1" parent="1" source="355COllHnJ6RIITX1w4e-3" style="endArrow=classic;html=1;fontSize=12;exitX=0.8;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" target="355COllHnJ6RIITX1w4e-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="602" y="300" />
+              <mxPoint x="700" y="300" />
+            </Array>
+            <mxPoint x="600" y="260" as="sourcePoint" />
+            <mxPoint x="700" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-20" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;Сохранить&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;в историю&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.84" y="0.17" as="geometry">
+            <mxPoint x="380" y="400" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-21" edge="1" parent="1" source="355COllHnJ6RIITX1w4e-4" style="endArrow=classic;html=1;fontSize=12;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" target="355COllHnJ6RIITX1w4e-6" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="420" y="380" as="sourcePoint" />
+            <mxPoint x="420" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-22" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;Доставить&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;сообщение&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.84" y="0.17" as="geometry">
+            <mxPoint x="740" y="400" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-23" edge="1" parent="1" source="355COllHnJ6RIITX1w4e-5" style="endArrow=classic;html=1;fontSize=12;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" target="355COllHnJ6RIITX1w4e-7" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="700" y="380" as="sourcePoint" />
+            <mxPoint x="700" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-25" edge="1" parent="1" source="355COllHnJ6RIITX1w4e-7" style="endArrow=classic;html=1;fontSize=12;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;strokeColor=#c2185b;dashed=1;" target="355COllHnJ6RIITX1w4e-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="700" y="520" as="sourcePoint" />
+            <mxPoint x="560" y="580" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-29" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;" value="&lt;b&gt;Типы соединений:&lt;/b&gt;&lt;br&gt;───&gt; WebSocket&lt;br&gt;━━━&gt; Прямая доставка&lt;br&gt;╭──&gt; Kafka (persistence)&lt;br&gt;┄┄┄&gt; Redis (real-time)&lt;br&gt;─ ─&gt; Offline уведомление" vertex="1">
+          <mxGeometry height="90" width="180" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-30" parent="1" style="text;html=1;strokeColor=none;fillColor=#f5f5f5;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=11;" value="&lt;b&gt;Архитектурные принципы:&lt;/b&gt;&lt;br&gt;• WebSocket для real-time&lt;br&gt;• Kafka для надежности&lt;br&gt;• Redis для скорости&lt;br&gt;• Database для истории&lt;br&gt;• Push для offline" vertex="1">
+          <mxGeometry height="100" width="180" x="665" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-31" parent="1" style="text;html=1;strokeColor=none;fillColor=#e8f5e9;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=11;" value="&lt;b&gt;Поток сообщения:&lt;/b&gt;&lt;br&gt;1. Клиент А → API Gateway&lt;br&gt;2. Gateway → Chat Service&lt;br&gt;3. Chat Service → Kafka+Redis&lt;br&gt;4. Redis → Клиент Б (online)&lt;br&gt;5. Kafka → Database (сохранение)&lt;br&gt;6. Если offline → Notification" vertex="1">
+          <mxGeometry height="120" width="180" x="40" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="355COllHnJ6RIITX1w4e-32" parent="1" style="text;html=1;strokeColor=none;fillColor=#e3f2fd;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=11;" value="&lt;b&gt;Компоненты:&lt;/b&gt;&lt;br&gt;• &lt;font color=&quot;#2e7d32&quot;&gt;Клиенты&lt;/font&gt; - Web/Mobile apps&lt;br&gt;• &lt;font color=&quot;#1976d2&quot;&gt;API Gateway&lt;/font&gt; - WebSocket proxy&lt;br&gt;• &lt;font color=&quot;#f57c00&quot;&gt;Chat Service&lt;/font&gt; - Бизнес-логика&lt;br&gt;• &lt;font color=&quot;#7b1fa2&quot;&gt;Kafka&lt;/font&gt; - Event streaming&lt;br&gt;• &lt;font color=&quot;#c62828&quot;&gt;Redis&lt;/font&gt; - In-memory cache&lt;br&gt;• &lt;font color=&quot;#00695c&quot;&gt;DB/ES&lt;/font&gt; - Хранение данных&lt;br&gt;• &lt;font color=&quot;#c2185b&quot;&gt;Notification&lt;/font&gt; - Offline уведомления" vertex="1">
+          <mxGeometry height="150" width="200" x="40" y="450" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
