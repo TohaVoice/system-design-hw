@@ -6,4 +6,4 @@
 
 == Архитектурная схема
 
-image::concept_schema.png[Схема архитектуры,800]
+image::concept-schema.png[Схема архитектуры,800]
