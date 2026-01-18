@@ -1,9 +1,6 @@
-=== Потоки данных и высокоуровневое взаимодействие
-ifndef::imagesdir[:imagesdir: {docdir}/images]
-
-
 = Потоки данных и высокоуровневое взаимодействие
 :icons: font
+:imagesdir: doc/images
 
 == Введение
 
@@ -13,26 +10,64 @@ ifndef::imagesdir[:imagesdir: {docdir}/images]
 
 === 1. Создание и публикация объявления
 
+.Схема процесса создания и публикации объявления
+[align="center"]
+image::Создание и публикация объявления.png[width=90%]
+
 [source,asciidoc]
-image::Создание и публикация объявления.png[]
+----
+1. Пользователь → Advertisement Service: Создание черновика
+2. Клиент → S3: Прямая загрузка медиафайлов
+3. S3 → Media Processor: Событие о новом файле
+4. Media Processor → Admin Service: Запрос на модерацию
+5. Admin Service → Advertisement Service: Подтверждение публикации
 ----
 
 === 2. Оформление заказа с оплатой и доставкой (Saga Pattern)
 
+.Схема Saga Pattern для оформления заказа
+[align="center"]
+image::Оформление заказа с оплатой и доставкой.png[width=90%]
+
 [source,asciidoc]
-image::Оформление заказа с оплатой и доставкой.png[]
+----
+1. Покупатель → Order Service: Создание заказа
+2. Order Service → Payment Service: Инициализация платежа
+3. Payment Service → Внешний провайдер: Обработка платежа
+4. Order Service → Delivery Service: Создание доставки
+5. Все успешно → Order Service: Завершение Saga
+6. Ошибка на любом шаге → Компенсационные транзакции
 ----
 
 === 3. Общение в чате между покупателем и продавцом
 
+.Схема взаимодействия в чате
+[align="center"]
+image::Общение в чате между покупателем и продавцом.png[width=90%]
+
 [source,asciidoc]
-image::Общение в чате между покупателем и продавцом.png[]
+----
+1. Пользователь → WebSocket Gateway: Установка соединения
+2. WebSocket Gateway → Chat Service: Аутентификация
+3. Chat Service → Redis: Сохранение статуса online
+4. Отправка сообщения → Cassandra: Сохранение
+5. Redis Pub/Sub → Все участники: Распространение
+6. Если участник offline → Notification Service: Уведомление
 ----
 
 === 4. Смена статуса доставки и уведомления
 
+.Схема обработки статусов доставки
+[align="center"]
+image::Смена статуса доставки и уведомления.png[width=90%]
+
 [source,asciidoc]
-image::Смена статуса доставки уведомления.png[]
+----
+1. Внешняя служба → Delivery Service: Webhook о статусе
+2. Delivery Service → Kafka: Событие об изменении статуса
+3. Kafka → Order Service: Обновление статуса заказа
+4. Kafka → Notification Service: Создание уведомления
+5. Notification Service → Пользователь: Отправка email/SMS/push
 ----
 
 == Паттерны взаимодействия
