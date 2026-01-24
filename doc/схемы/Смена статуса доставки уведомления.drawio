@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.2">
+  <diagram name="Delivery Webhook Processing" id="fghR94NVDE10w9N-ZfTa">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="hMW-9bScU1PABcNirk3V-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#f5f5f5;strokeColor=#666666;" value="СДЭК&lt;div&gt;(SDEK)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="120" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-16" edge="1" parent="1" source="hMW-9bScU1PABcNirk3V-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="hMW-9bScU1PABcNirk3V-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#e3f2fd;strokeColor=#1976d2;" value="Delivery Service" vertex="1">
+          <mxGeometry height="60" width="140" x="430" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-13" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;1. Webhook от СДЭК&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;(status: update)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="340" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-6" edge="1" parent="1" style="endArrow=classic;html=1;fontSize=12;entryX=0;entryY=0.5;edgeStyle=orthogonalEdgeStyle;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=bottom;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="260" y="149.5" as="sourcePoint" />
+            <mxPoint x="430" y="149.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#f3e5f5;strokeColor=#7b1fa2;" value="Kafka&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(events)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="430" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-17" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;2. Валидация и парсинг&lt;/b&gt;" vertex="1">
+          <mxGeometry x="580" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-26" edge="1" parent="1" source="hMW-9bScU1PABcNirk3V-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="hMW-9bScU1PABcNirk3V-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#d5e8d4;strokeColor=#82b366;" value="Order Service" vertex="1">
+          <mxGeometry height="60" width="140" x="300" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#fff2cc;strokeColor=#d6b656;" value="User Service&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;(для истории)&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="560" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-23" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;3. Событие&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;(delivery status update)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="520" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-21" edge="1" parent="1" source="hMW-9bScU1PABcNirk3V-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.571;entryY=0.017;entryDx=0;entryDy=0;entryPerimeter=0;" target="hMW-9bScU1PABcNirk3V-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-20" edge="1" parent="1" source="hMW-9bScU1PABcNirk3V-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="hMW-9bScU1PABcNirk3V-18">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="340" />
+              <mxPoint x="370" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-24" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;4. Обновление статуса заказа&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;(status: in_transit)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="340" y="380" as="geometry">
+            <mxPoint x="-43" y="72" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-29" edge="1" parent="1" source="hMW-9bScU1PABcNirk3V-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="hMW-9bScU1PABcNirk3V-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Rules Engine" vertex="1">
+          <mxGeometry height="60" width="140" x="300" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-27" connectable="0" parent="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="&lt;b&gt;5. Определение типа уведомления&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px&quot;&gt;(if status = DELIVERED)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="350" y="530" as="geometry">
+            <mxPoint x="-43" y="72" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hMW-9bScU1PABcNirk3V-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;fillColor=#fce4ec;strokeColor=#c2185b;" value="Notification Service&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;(Push/Email/SMS)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="140" x="300" y="660" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

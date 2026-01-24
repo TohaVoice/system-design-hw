@@ -1,5 +1,9 @@
-=== Схема концептуальной архитектуры
+= Схема концептуальной архитектуры
+:icons: font
+:toc:
 
-ifndef::imagesdir[:imagesdir: {docdir}/images]
+:imagesdir: images
 
-image::hla.png[]
+== Архитектурная схема
+
+image::concept-schema.png[Схема архитектуры,800]
