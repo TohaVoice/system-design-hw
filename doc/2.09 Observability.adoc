@@ -1,1 +1,44 @@
-=== Observability
+== Observability
+
+**Стек технологий:**
+
+- Сбор метрик: Prometheus
+- Централизованные логи: ELK Stack (Elasticsearch, Logstash, Kibana)
+- Трассировка: Jaeger для распределенных транзакций
+- Визуализация: Grafana dashboards
+- Алертинг: Alertmanager с интеграцией в Telegram
+
+=== 4.2. Ключевые метрики
+**Бизнес-метрики:**
+
+- Количество активных объявлений
+- Количество успешных транзакций
+- Конверсия просмотров в контакты
+- Среднее время ответа на сообщения
+
+**Технические метрики:**
+
+*Инфраструктура:* CPU utilization, Memory usage, Disk I/O, Network throughput
+*Сервисы:* RPS по endpoint, Latency (p50, p95, p99), Error rate, Success rate операций
+*Базы данных:* Query execution time, Connection pool usage, Replication lag, Cache hit ratio
+
+=== 4.3. Алертинг
+**Критические алерты (Telegram):**
+
+1. Availability < 99.5% более 5 минут
+2. RPS > 80% от capacity более 10 минут
+3. Error rate > 5% более 5 минут
+4. Database replication lag > 30 секунд
+5. Payment failures > 1%
+
+**Предупреждения (Email):**
+
+1. Latency (p95) > SLA на 20% более 15 минут
+2. Memory usage > 80% более 30 минут
+3. Disk usage > 85%
+4. RPS рост > 50% за час
+
+**Информационные (Dashboard):**
+
+1. Суточная статистика по сервисам
+4. Геораспределение трафика
