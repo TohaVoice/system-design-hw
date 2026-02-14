@@ -1,1 +1,116 @@
-=== Форматы взаимодействия
+== Форматы взаимодействия
+:icons: font
+:toc:
+
+== Уровень 1: Клиенты → Gateway Layer
+
+**Протокол:** HTTPS (HTTP/1.1, HTTP/2, WebSocket Secure)
+
+**Форматы:** JSON, статические файлы (JS, CSS, изображения)
+
+**Аутентификация:** JWT в заголовках (Bearer token)
+
+== Уровень 2: Gateway Layer → Backend Services
+
+**Вариант А (стандартный) - HTTP/1.1 + REST/JSON**
+
+* Использование: CRUD операции, админ-панель, внешние интеграции
+* Особенности: простота, совместимость, человеко-читаемость
+
+**Вариант Б (высоконагруженный) - HTTP/2 + gRPC/Protobuf**
+
+* Использование: поиск (20,000 RPS), логика заказов
+* Особенности: высокая производительность, строгая типизация, поддержка streaming
+
+**Вариант В (real-time) - WebSocket + JSON**
+
+*   Использование: чат, уведомления в реальном времени
+*   Особенности: постоянное двустороннее соединение
+
+== Уровень 3: Backend Services между собой
+
+**Вариант А (синхронный) - HTTP/2 + gRPC/Protobuf**
+
+*   Использование: когда нужен немедленный ответ (проверка баланса, расчет доставки)
+*   Требования: время ответа до 100-200 мс
+
+**Вариант Б (асинхронный) - Kafka + Avro/Protobuf**
+
+*   Использование: события (ad.created, order.paid), долгие процессы, обновление поискового индекса
+*   Гарантии: at-least-once, exactly-once для финансовых операций
+
+== Уровень 4: Backend → Хранилища данных
+
+[cols="1,2,2", options="header"]
+|===
+| Хранилище | Протокол | Формат
+| PostgreSQL | PostgreSQL Wire Protocol (TCP) | SQL/бинарный
+| Elasticsearch | HTTP/REST | JSON (bulk API)
+| Redis | RESP (Redis Serialization Protocol) | бинарный
+| S3 | HTTPS/REST | XML (presigned URLs)
+|===
+
+== Уровень 5: Backend → Внешние сервисы
+
+**Протокол:** HTTPS (HTTP/1.1)
+
+**Форматы:** REST/JSON (преимущественно), SOAP/XML (для legacy систем)
+
+**Особенности:**
+
+*   API ключи в заголовках
+*   Вебхуки для асинхронных ответов
+*   Retry политики с экспоненциальной задержкой
+*   Circuit breaker для защиты от сбоев
+
+== Уровень 6: Backend → Infra Layer
+
+[cols="1,2,2,2", options="header"]
+|===
+| Компонент | Протокол | Формат | Тип
+| Service Discovery (Consul) | HTTP/gRPC | JSON/Protobuf | Push (регистрация)
+| Monitoring (Prometheus) | HTTP | Text/Protobuf | Pull (/metrics)
+| Logging (ELK) | Filebeat/HTTP | JSON | Push (структурированные логи)
+| Tracing (Jaeger) | UDP/HTTP | Protobuf | Push (спаны)
+|===
+
+
+== Ключевые правила выбора протокола
+
+1. **Клиент → Сервер**: всегда HTTPS (без исключений)
+2. **Внутренние синхронные вызовы**: gRPC/Protobuf для высоконагруженных сервисов, REST/JSON для остальных
+3. **Асинхронные события**: Kafka для доменных событий, RabbitMQ для очередей задач
+4. **Хранилища**: нативные протоколы СУБД (оптимизированы под конкретную систему)
+5. **Внешние API**: то, что поддерживает провайдер (обычно REST/JSON)
+6. **Мониторинг**: pull модель (Prometheus) для метрик, push (Filebeat) для логов
+
+== Аутентификация между компонентами
+
+[cols="2,2", options="header"]
+|===
+| Взаимодействие | Механизм
+| Клиент → API Gateway | JWT (Bearer token)
+| API Gateway → Backend | mTLS + внутренние сервисные JWT
+| Backend → Backend | mTLS + сервисные аккаунты
+| Backend → Kafka | SASL/SSL + ACL
+| Backend → Database | TLS + пароль (ограниченные права)
+| Backend → Внешние API | API keys, OAuth2 client credentials
+|===
+
+== Версионирование API
+
+*   **REST API:** `/api/v1/users`, `/api/v2/users`
+*   **gRPC:** `package com.example.v1; package com.example.v2;`
+*   **Kafka:** `ad.events.v1`, `ad.events.v2`
+
+== Гарантии доставки
+
+[cols="1,2,2", options="header"]
+|===
+| Тип | Механизм | Гарантия
+| Синхронные запросы | HTTP с таймаутами, retry | Максимум 3 попытки с экспоненциальной задержкой
+| События в Kafka | Репликация, acknowledgement | At-least-once / Exactly-once
+| Очереди задач | RabbitMQ с подтверждениями | At-least-once
+| Метрики | Pull модель Prometheus | Best effort
+| Логи | Буферизация на Filebeat | At-least-once
+|===

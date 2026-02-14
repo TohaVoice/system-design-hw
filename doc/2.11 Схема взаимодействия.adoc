@@ -1,1 +1,9 @@
-=== Схема взаимодействия
+== Схема взаимодействия
+:icons: font
+:toc:
+
+:imagesdir: images
+
+== Архитектурная схема
+
+image::interaction-scheme.png[Архитектурная схема,800]
