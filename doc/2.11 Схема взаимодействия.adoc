@@ -6,4 +6,4 @@
 
 == Архитектурная схема
 
-image::interaction-scheme.png[Архитектурная схема,800]
+image::interaction-schema.png[Архитектурная схема,800]
