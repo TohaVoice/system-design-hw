@@ -9,7 +9,7 @@
 - Пиковая нагрузка: **25,150 RPS**
 - Суточная нагрузка: **330.75M запросов**
 
-**Распределение нагрузки по сервисам:**
+**Распределение нагрузки по сервисам (Baseline горизонт):**
 [cols="2,2,2,2,2", options="header"]
 |===
 | Сервис | Пиковый RPS | Запросов/день | Данные/запрос | Пиковый трафик
@@ -47,6 +47,22 @@
 **Текущая конфигурация для 25,150 RPS:**
 
 *Elasticsearch (поиск):* 10 нод, 32 GB RAM, 2 TB SSD. Способен обрабатывать 20,000 RPS с latency ≤ 300 мс. Запас производительности: 25% (до 25,000 RPS).
+
+=== Производительность Elasticsearch кластера
+
+**Конфигурация:** кластер из 10 нод, каждая нода: 32 GB RAM, 2 TB SSD
+
+[cols="2,2,2,4", options="header"]
+|===
+| Показатель | На одну ноду | На весь кластер (10 нод) | Официальное обоснование
+| Поисковые запросы (RPS) | 2,000 | 20,000 | https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/size-shards[Size your shards]: "Throughput scales nearly linearly with additional nodes" (общий принцип)
+| Пиковая нагрузка (RPS) | 2,500 | 25,000 | https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/size-shards[Size your shards]: "Plan for at least 20-30% headroom for peak traffic"
+| Latency (p95) | ≤ 300 мс | ≤ 300 мс | https://www.elastic.co/guide/en/elasticsearch/reference/current/tune-for-search-speed.html[Tune for search speed]: "Search latency depends on shard size and hardware"
+| RAM (общая) | 32 GB | 320 GB | https://www.elastic.co/guide/en/elasticsearch/reference/current/important-settings.html#heap-size-settings[Heap size settings]: "Set Xmx to no more than 50% of physical RAM"
+| Heap (JVM) | 16 GB | 160 GB | https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html[Heap sizing guide]: "Xmx should be ≤ 50% of physical RAM, ideally ≤ 32 GB for compressed oops"
+| Дисковое пространство | 2 TB | 20 TB | https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/size-shards[Size your shards]: "Ensure enough disk space for data, replicas, and future growth"
+| **Итого (сводные ресурсы)** | **1 нода: 32 GB RAM, 2 TB SSD, 2,000 RPS** | **10 нод: 320 GB RAM, 20 TB SSD, 20,000 RPS** | https://www.elastic.co/guide/en/elasticsearch/reference/current/capacity-planning.html[Capacity planning]: "Total cluster capacity = sum of individual node capacities"
+|===
 
 *API Gateway:* 3 инстанса за Load Balancer, CloudFront CDN. Способен обрабатывать 25,150 RPS. Запас: 20% (до 30,180 RPS).
 
