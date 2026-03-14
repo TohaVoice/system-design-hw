@@ -1,1 +1,7 @@
-=== Схемы данных
+== Схемы данных
+:icons: font
+:toc:
+
+:imagesdir: images
+
+image::db-schema.png[Схема БД,800]
