@@ -4,4 +4,8 @@
 
 :imagesdir: images
 
-image::db-schema.png[Схема БД,800]
+image::db-schema.png[Общая схема БД,800]
+
+image::db-schema-transactions.png[Схема данных для транзакционных сервисов,800]
+
+image::db-schema-add.png[Схема данных для сервисов поддержки,800]

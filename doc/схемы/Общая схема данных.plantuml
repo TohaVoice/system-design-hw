@@ -1,0 +1,168 @@
+@startuml
+!define table(x) entity x << (T,#FFE6CC) >>
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 80
+skinparam packageStyle rectangle
+
+' ================== Транзакционные сервисы (верх) ==================
+package "User Service (PostgreSQL)" {
+  table(users) {
+    id: UUID <<PK>>
+    email: VARCHAR
+    role: VARCHAR
+    status: VARCHAR
+  }
+  table(profiles) {
+    user_id: UUID <<PK>>
+    avatar_url: VARCHAR
+    rating: DECIMAL
+  }
+}
+
+package "Advertisement Service (PostgreSQL + ES)" {
+  table(advertisements) {
+    id: UUID <<PK>>
+    seller_id: UUID
+    title: VARCHAR
+    price: DECIMAL
+    status: VARCHAR
+  }
+  table(ad_media) {
+    id: UUID <<PK>>
+    advertisement_id: UUID
+    s3_key: VARCHAR
+  }
+  table(categories) {
+    id: UUID <<PK>>
+    name: VARCHAR
+    parent_id: UUID
+  }
+  note right of advertisements
+    <b>search_index</b> (Elasticsearch)
+  end note
+}
+
+package "Order Service (PostgreSQL)" {
+  table(orders) {
+    id: UUID <<PK>>
+    buyer_id: UUID
+    seller_id: UUID
+    advertisement_id: UUID
+    total_amount: DECIMAL
+    status: VARCHAR
+  }
+  table(order_items) {
+    id: UUID <<PK>>
+    order_id: UUID
+    advertisement_id: UUID
+    quantity: INTEGER
+  }
+  table(saga_instances) {
+    id: UUID <<PK>>
+    type: VARCHAR
+    status: VARCHAR
+  }
+}
+
+package "Payment Service (PostgreSQL)" {
+  table(payments) {
+    id: UUID <<PK>>
+    order_id: UUID
+    amount: DECIMAL
+    status: VARCHAR
+    provider: VARCHAR
+  }
+  table(refunds) {
+    id: UUID <<PK>>
+    payment_id: UUID
+    amount: DECIMAL
+  }
+}
+
+package "Delivery Service (PostgreSQL)" {
+  table(deliveries) {
+    id: UUID <<PK>>
+    order_id: UUID
+    provider: VARCHAR
+    tracking_number: VARCHAR
+    status: VARCHAR
+  }
+  table(tracking_events) {
+    id: UUID <<PK>>
+    delivery_id: UUID
+    status: VARCHAR
+    timestamp: TIMESTAMP
+  }
+}
+
+' ================== Сервисы поддержки (низ) ==================
+package "Chat Service (Cassandra)" {
+  table(conversations) {
+    conversation_id: UUID <<PK>>
+    participant_1: UUID
+    participant_2: UUID
+    advertisement_id: UUID
+  }
+  table(messages) {
+    conversation_id: UUID <<PK>>
+    message_id: UUID
+    sender_id: UUID
+    content: TEXT
+    sent_at: TIMESTAMP
+  }
+}
+
+package "Notification Service (PostgreSQL)" {
+  table(notifications) {
+    id: UUID <<PK>>
+    user_id: UUID
+    type: VARCHAR
+    status: VARCHAR
+  }
+  table(user_preferences) {
+    user_id: UUID <<PK>>
+    email_enabled: BOOLEAN
+  }
+}
+
+package "Admin Service (PostgreSQL)" {
+  table(moderation_queue) {
+    id: UUID <<PK>>
+    advertisement_id: UUID
+    status: VARCHAR
+    assigned_to: UUID
+  }
+  table(admin_actions) {
+    id: UUID <<PK>>
+    admin_id: UUID
+    target_type: VARCHAR
+    target_id: UUID
+    action: VARCHAR
+  }
+}
+
+' ================== Связи внутри транзакционных сервисов ==================
+users ||--o{ advertisements : "seller_id"
+advertisements ||--o{ ad_media : "advertisement_id"
+categories ||--o{ categories : "parent_id"
+users ||--o{ orders : "buyer_id"
+users ||--o{ orders : "seller_id"
+advertisements ||--o{ orders : "advertisement_id"
+orders ||--o{ order_items : "order_id"
+orders ||--o{ saga_instances : "order_id (optional)"
+orders ||--o{ payments : "order_id"
+payments ||--o{ refunds : "payment_id"
+orders ||--o{ deliveries : "order_id"
+deliveries ||--o{ tracking_events : "delivery_id"
+
+' ================== Связи с сервисами поддержки ==================
+users ||--o{ conversations : "participant_1"
+users ||--o{ conversations : "participant_2"
+advertisements ||--o{ conversations : "advertisement_id"
+users ||--o{ notifications : "user_id"
+users ||--o{ moderation_queue : "assigned_to"
+advertisements ||--o{ moderation_queue : "advertisement_id"
+users ||--o{ admin_actions : "admin_id"
+
+@enduml

@@ -1,0 +1,85 @@
+@startuml
+!define table(x) entity x << (T,#FFE6CC) >>
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+' === Внешние таблицы (принадлежат User Service и Advertisement Service) ===
+package "External (User & Ad Services)" {
+  table(users) {
+    id: UUID <<PK>>
+    email: VARCHAR
+    role: VARCHAR
+  }
+  table(advertisements) {
+    id: UUID <<PK>>
+    seller_id: UUID
+    title: VARCHAR
+  }
+}
+
+' === Сервисы поддержки ===
+package "Chat Service" {
+  table(conversations) {
+    conversation_id: UUID <<PK>>
+    participant_1: UUID
+    participant_2: UUID
+    advertisement_id: UUID
+  }
+  table(messages) {
+    conversation_id: UUID <<PK>>
+    message_id: UUID
+    sender_id: UUID
+    content: TEXT
+    sent_at: TIMESTAMP
+  }
+  table(online_status) {
+    user_id: UUID <<PK>>
+    status: VARCHAR
+  }
+}
+
+package "Notification Service" {
+  table(notifications) {
+    id: UUID <<PK>>
+    user_id: UUID
+    type: VARCHAR
+    status: VARCHAR
+  }
+  table(templates) {
+    id: VARCHAR <<PK>>
+    name: VARCHAR
+    content: TEXT
+  }
+  table(user_preferences) {
+    user_id: UUID <<PK>>
+    email_enabled: BOOLEAN
+  }
+}
+
+package "Admin Service" {
+  table(moderation_queue) {
+    id: UUID <<PK>>
+    advertisement_id: UUID
+    status: VARCHAR
+    assigned_to: UUID
+  }
+  table(admin_actions) {
+    id: UUID <<PK>>
+    admin_id: UUID
+    target_type: VARCHAR
+    target_id: UUID
+    action: VARCHAR
+  }
+}
+
+' === Связи от внешних таблиц к сервисам поддержки ===
+users ||--o{ conversations : "participant_1"
+users ||--o{ conversations : "participant_2"
+advertisements ||--o{ conversations : "advertisement_id"
+users ||--o{ notifications : "user_id"
+users ||--o{ moderation_queue : "assigned_to"
+advertisements ||--o{ moderation_queue : "advertisement_id"
+users ||--o{ admin_actions : "admin_id"
+
+@enduml
