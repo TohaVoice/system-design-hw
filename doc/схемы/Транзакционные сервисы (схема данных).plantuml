@@ -1,0 +1,106 @@
+@startuml
+!define table(x) entity x << (T,#FFE6CC) >>
+skinparam linetype ortho
+skinparam nodesep 40
+skinparam ranksep 40
+
+package "User Service" {
+  table(users) {
+    id: UUID <<PK>>
+    email: VARCHAR
+    role: VARCHAR
+    status: VARCHAR
+  }
+  table(profiles) {
+    user_id: UUID <<PK>>
+    avatar_url: VARCHAR
+    rating: DECIMAL
+  }
+}
+
+package "Advertisement Service" {
+  table(advertisements) {
+    id: UUID <<PK>>
+    seller_id: UUID
+    title: VARCHAR
+    price: DECIMAL
+    status: VARCHAR
+  }
+  table(ad_media) {
+    id: UUID <<PK>>
+    advertisement_id: UUID
+    s3_key: VARCHAR
+  }
+  table(categories) {
+    id: UUID <<PK>>
+    name: VARCHAR
+    parent_id: UUID
+  }
+}
+
+package "Order Service" {
+  table(orders) {
+    id: UUID <<PK>>
+    buyer_id: UUID
+    seller_id: UUID
+    advertisement_id: UUID
+    status: VARCHAR
+  }
+  table(order_items) {
+    id: UUID <<PK>>
+    order_id: UUID
+    advertisement_id: UUID
+  }
+  table(saga_instances) {
+    id: UUID <<PK>>
+    type: VARCHAR
+    status: VARCHAR
+  }
+}
+
+package "Payment Service" {
+  table(payments) {
+    id: UUID <<PK>>
+    order_id: UUID
+    amount: DECIMAL
+    status: VARCHAR
+    provider: VARCHAR
+  }
+  table(refunds) {
+    id: UUID <<PK>>
+    payment_id: UUID
+    amount: DECIMAL
+  }
+}
+
+package "Delivery Service" {
+  table(deliveries) {
+    id: UUID <<PK>>
+    order_id: UUID
+    provider: VARCHAR
+    tracking_number: VARCHAR
+    status: VARCHAR
+  }
+  table(tracking_events) {
+    id: UUID <<PK>>
+    delivery_id: UUID
+    status: VARCHAR
+    timestamp: TIMESTAMP
+  }
+}
+
+' === Связи ===
+users ||--o{ advertisements : "seller_id"
+advertisements ||--o{ ad_media : "advertisement_id"
+categories ||--o{ categories : "parent_id"
+advertisements ||--o{ orders : "advertisement_id"
+users ||--o{ orders : "buyer_id"
+users ||--o{ orders : "seller_id"
+orders ||--o{ order_items : "order_id"
+orders ||--o{ saga_instances : "order_id (optional)"
+orders ||--o{ payments : "order_id"
+payments ||--o{ refunds : "payment_id"
+orders ||--o{ deliveries : "order_id"
+deliveries ||--o{ tracking_events : "delivery_id"
+
+@enduml
