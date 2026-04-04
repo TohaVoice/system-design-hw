@@ -90,8 +90,8 @@
 |===
 | Взаимодействие | Механизм
 | Клиент → API Gateway | JWT (Bearer token)
-| API Gateway → Backend | mTLS + внутренние сервисные JWT
-| Backend → Backend | mTLS + сервисные аккаунты
+| API Gateway → Backend | внутренние сервисные JWT
+| Backend → Backend | сервисные аккаунты
 | Backend → Kafka | SASL/SSL + ACL
 | Backend → Database | TLS + пароль (ограниченные права)
 | Backend → Внешние API | API keys, OAuth2 client credentials
