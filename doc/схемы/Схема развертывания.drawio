@@ -1,0 +1,107 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Схема развертывания" id="b9AQnJy1li2s5hKGcNT8">
+    <mxGraphModel dx="903" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="leZoHeM_4dC464YmcFlz-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="CI/CD (GitHub Actions)" vertex="1">
+          <mxGeometry height="134" width="260" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-2" parent="leZoHeM_4dC464YmcFlz-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Сборка образа" vertex="1">
+          <mxGeometry height="26" width="260" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-3" parent="leZoHeM_4dC464YmcFlz-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Тестирование (unit, integration)" vertex="1">
+          <mxGeometry height="26" width="260" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-4" parent="leZoHeM_4dC464YmcFlz-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Публикация в GHCR" vertex="1">
+          <mxGeometry height="26" width="260" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-5" parent="leZoHeM_4dC464YmcFlz-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" value="Обновление Helm-чарта" vertex="1">
+          <mxGeometry height="26" width="260" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;GHCR (Registry)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="360" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-7" edge="1" parent="1" source="leZoHeM_4dC464YmcFlz-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;startArrow=none;strokeWidth=2;strokeColor=#6c8ebf;" target="leZoHeM_4dC464YmcFlz-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;ArgoCD (GitOps)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="360" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-9" edge="1" parent="1" source="leZoHeM_4dC464YmcFlz-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;startArrow=none;strokeWidth=2;strokeColor=#82b366;" target="leZoHeM_4dC464YmcFlz-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-10" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#f5f5f5;strokeColor=#666666;" value="Kubernetes Cluster" vertex="1">
+          <mxGeometry height="510" width="400" x="580" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-11" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="User Service" vertex="1">
+          <mxGeometry height="40" width="400" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-12" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Advertisement Service" vertex="1">
+          <mxGeometry height="40" width="400" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-13" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Order Service" vertex="1">
+          <mxGeometry height="40" width="400" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-14" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Payment Service" vertex="1">
+          <mxGeometry height="40" width="400" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-15" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Delivery Service" vertex="1">
+          <mxGeometry height="40" width="400" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-16" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Chat Service" vertex="1">
+          <mxGeometry height="40" width="400" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-17" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="PostgreSQL (Patroni)" vertex="1">
+          <mxGeometry height="40" width="400" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-18" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Redis Cluster" vertex="1">
+          <mxGeometry height="40" width="400" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-19" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Kafka (Strimzi)" vertex="1">
+          <mxGeometry height="40" width="400" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-20" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Elasticsearch" vertex="1">
+          <mxGeometry height="40" width="400" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-21" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="HashiCorp Vault" vertex="1">
+          <mxGeometry height="40" width="400" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-22" parent="leZoHeM_4dC464YmcFlz-10" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="Prometheus + Grafana" vertex="1">
+          <mxGeometry height="40" width="400" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-23" edge="1" parent="1" source="leZoHeM_4dC464YmcFlz-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;startArrow=none;strokeWidth=2;strokeColor=#82b366;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="leZoHeM_4dC464YmcFlz-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="250" as="sourcePoint" />
+            <mxPoint x="580" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="GitHub (code)" vertex="1">
+          <mxGeometry height="50" width="120" x="110" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="HashiCorp Vault" vertex="1">
+          <mxGeometry height="50" width="120" x="40" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-26" edge="1" parent="1" source="leZoHeM_4dC464YmcFlz-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;startArrow=none;strokeWidth=2;strokeColor=#666666;" target="leZoHeM_4dC464YmcFlz-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-27" edge="1" parent="1" source="leZoHeM_4dC464YmcFlz-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;startArrow=none;strokeWidth=2;strokeColor=#b85450;dashed=1;" target="leZoHeM_4dC464YmcFlz-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="90" y="260" />
+              <mxPoint x="150" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-29" connectable="0" parent="leZoHeM_4dC464YmcFlz-27" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Text" vertex="1">
+          <mxGeometry relative="1" x="-0.4969" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leZoHeM_4dC464YmcFlz-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" value="&lt;b&gt;IaC инструменты:&lt;/b&gt;&lt;br&gt;Terraform, Helm, ArgoCD" vertex="1">
+          <mxGeometry height="60" width="200" x="40" y="480" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
