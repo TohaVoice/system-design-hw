@@ -4,6 +4,11 @@
 :toc:
 :toclevels: 3
 
+:imagesdir: images
+
+== Схема развертывания
+image::deployment-scheme.png[Схема развертывания,800]
+
 == 1. Инфраструктура как код (IaC)
 
 Вся инфраструктура описывается декларативно и хранится в репозитории. Используются следующие инструменты:
@@ -27,7 +32,12 @@
 === 1.2. Развертывание системного и прикладного ПО
 
 * **Системное ПО** (Kafka, Elasticsearch, Redis) разворачивается через операторы в Kubernetes (например, Strimzi, Elastic Cloud on Kubernetes). Конфигурация описывается в YAML.
-* **Прикладное ПО** (микросервисы) упаковывается в Docker-образы, версионируется и публикуется в реестре (Harbor). Развертывание выполняется через Helm-чарты, которые устанавливаются ArgoCD.
+* **Прикладное ПО** (микросервисы) упаковывается в Docker-образы, версионируется и публикуется в реестре (GHCR). Развертывание выполняется через Helm-чарты, которые устанавливаются ArgoCD.
+
+=== Управление секретами при развертывании
+* Все секреты (пароли БД, API-ключи, сертификаты, токены доступа) хранятся в **HashiCorp Vault**.
+* При развертывании через ArgoCD используется **Vault Agent** или **Vault Injector**, который автоматически подставляет секреты в поды Kubernetes.
+* Для доступа к Vault из CI/CD (GitHub Actions) используется временный токен, хранящийся в GitHub Secrets (только один секрет). Все остальные секреты извлекаются динамически из Vault.
 
 === 1.3. Обновление ПО
 
@@ -54,11 +64,28 @@
 
 * Все сервисы упакованы в **Docker** с минимальными базовыми образами (Alpine, Distroless).
 * **Dockerfile** содержит многостадийную сборку, чтобы уменьшить размер финального образа.
-* Образы хранятся в приватном реестре **Harbor**, настроено сканирование уязвимостей.
+* Образы хранятся в приватном реестре **GHCR**, настроено сканирование уязвимостей.
 * Для безопасности образы подписываются (cosign) и проверяются при развертывании.
 
-== 4. Мониторинг и observability
+=== 4. Собираемые метрики
 
-* Развёрнут стек **Prometheus + Grafana** для сбора метрик.
-* **Loki** для логов, **Jaeger** для трассировки.
-* Дашборды в Grafana настроены для каждого сервиса и окружения.
+[cols="2,2,2,3", options="header"]
+|===
+| Категория | Метрика | Источник | Назначение
+| **Инфраструктура** | CPU utilization (node, pod) | kube-state-metrics, cAdvisor | Планирование ресурсов, автоскейлинг
+| | Memory usage (node, pod) | kube-state-metrics, cAdvisor | Предотвращение OOM, оценка утечек
+| | Network I/O (bytes/sec) | kubelet | Обнаружение сетевых аномалий
+| | Disk usage (PV, node) | node-exporter | Заполнение хранилища
+| **Сервисы** | RPS (requests per second) по эндпоинтам | сервисы (Micrometer) | Анализ нагрузки
+| | Latency (p50, p95, p99) | сервисы (Micrometer) | Контроль SLA/SLO
+| | Error rate (5xx, 4xx) | сервисы (Micrometer) | Обнаружение сбоев
+| | Business метрики (активные объявления, заказы) | сервисы (Micrometer) | Мониторинг бизнес‑процессов
+| **Базы данных** | Query duration (PostgreSQL) | postgres-exporter | Оптимизация запросов
+| | Connection pool usage | postgres-exporter | Утечки соединений
+| | Replication lag | postgres-exporter | Здоровье реплик
+| **Kafka** | Consumer lag | kafka-exporter | Отставание consumer‑ов
+| | Under-replicated partitions | kafka-exporter | Целостность данных
+| **Elasticsearch** | Search latency | elasticsearch-exporter | Производительность поиска
+| | Indexing rate | elasticsearch-exporter | Нагрузка на индексацию
+| **Redis** | Hit ratio | redis-exporter | Эффективность кэша
+| | Memory fragmentation | redis-exporter | Утечки памяти
